@@ -9,18 +9,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg1:#FFF5F2;
-  --bg2:#FBE4E0;
-  --bg3:#F8D9D6;
-  --card:#FFFDFC;
-  --pink-light:#F9DEDC;
+  --bg1:#0D0608;
+  --bg2:#1A0A10;
+  --bg3:#240E16;
+  --card:#1C0E14;
+  --card-border:rgba(230,57,70,.15);
+  --pink-light:#3A1A22;
   --pink:#E8A8A3;
   --pink-dark:#DE8B86;
   --red:#E63946;
-  --text:#5E4742;
-  --text-soft:#8C736D;
-  --envelope:#F3C9A9;
-  --envelope-dark:#E7B48F;
+  --red-soft:#FF4D5E;
+  --text:#F5E4E6;
+  --text-soft:#B8989D;
+  --envelope:#3A1F26;
+  --envelope-dark:#2A151B;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{scroll-behavior:smooth;}
@@ -30,9 +32,12 @@ body{
   min-height:100vh;
   overflow-x:hidden;
   position:relative;
-  background:linear-gradient(160deg,#FFF5F2 0%,#FBE4E0 45%,#F8D9D6 100%);
+  background:linear-gradient(160deg,#0D0608 0%,#1A0A10 45%,#240E16 100%);
   background-attachment:fixed;
   line-height:1.8;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-tap-highlight-color:transparent;
 }
 #hearts{
   position:fixed;inset:0;
@@ -42,16 +47,17 @@ body{
 }
 .heart{
   position:absolute;
-  bottom:-60px;
+  bottom:-30px;
   opacity:0;
   animation:floatUp linear infinite;
-  filter:drop-shadow(0 2px 4px rgba(230,57,70,.15));
+  filter:drop-shadow(0 0 5px rgba(230,57,70,.6));
+  will-change:transform,opacity;
 }
 @keyframes floatUp{
   0%{transform:translateY(0) rotate(0deg);opacity:0;}
-  10%{opacity:.45;}
-  90%{opacity:.45;}
-  100%{transform:translateY(-108vh) rotate(340deg);opacity:0;}
+  10%{opacity:.7;}
+  90%{opacity:.7;}
+  100%{transform:translateY(-105vh) rotate(320deg);opacity:0;}
 }
 .screen{display:none;}
 .screen.active{display:flex;}
@@ -76,24 +82,26 @@ body{
   text-align:center;
   animation:fadeUp .9s ease;
   white-space:nowrap;
+  text-shadow:0 0 20px rgba(230,57,70,.4);
 }
 .env-name .mark{
-  color:var(--red);
+  color:var(--red-soft);
   font-size:.8em;
   vertical-align:middle;
   margin-right:6px;
+  animation:beat 1.5s ease-in-out infinite;
+  display:inline-block;
 }
 .env-deco{
   font-size:.85rem;
   letter-spacing:8px;
-  color:var(--pink-dark);
-  opacity:.75;
+  color:var(--red-soft);
+  opacity:.8;
   margin-bottom:44px;
   animation:fadeUp 1.1s ease;
 }
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 
-/* الظرف بيهتز يمين وشمال */
 .envelope-wrap{
   perspective:1400px;
   margin-bottom:38px;
@@ -120,9 +128,9 @@ body{
   background:linear-gradient(160deg,var(--envelope) 0%,var(--envelope-dark) 100%);
   border-radius:10px;
   box-shadow:
-    0 18px 34px rgba(111,87,80,.22),
-    0 4px 10px rgba(111,87,80,.12),
-    inset 0 -6px 12px rgba(0,0,0,.05);
+    0 18px 34px rgba(0,0,0,.6),
+    0 0 30px rgba(230,57,70,.2),
+    inset 0 -6px 12px rgba(0,0,0,.4);
 }
 .env-pocket-left{
   position:absolute;inset:0;
@@ -155,18 +163,18 @@ body{
   transition:transform 1s cubic-bezier(.7,-0.3,.3,1.4);
   z-index:5;
   backface-visibility:hidden;
-  box-shadow:0 2px 6px rgba(0,0,0,.06);
+  box-shadow:0 2px 6px rgba(0,0,0,.3);
 }
 .envelope.open .env-flap{transform:rotateX(180deg);}
 .env-seal{
   position:absolute;top:52%;left:50%;
   transform:translate(-50%,-50%);
   width:52px;height:52px;
-  background:radial-gradient(circle at 35% 30%,#F35B66,#C42431 70%);
+  background:radial-gradient(circle at 35% 30%,#FF4D5E,#8E0F1A 70%);
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   color:#fff;font-size:1.3rem;
-  box-shadow:0 6px 14px rgba(196,36,49,.45),inset 0 -2px 4px rgba(0,0,0,.25);
+  box-shadow:0 6px 20px rgba(230,57,70,.7),inset 0 -2px 4px rgba(0,0,0,.4);
   z-index:6;
   transition:opacity .4s,transform .4s;
 }
@@ -181,8 +189,9 @@ body{
 }
 .tap-text .emoji{margin:0 6px;}
 @keyframes pulse{0%,100%{opacity:.6;}50%{opacity:1;}}
+@keyframes beat{0%,100%{transform:scale(1);}50%{transform:scale(1.18);}}
 
-/* ============ شاشة الورقة البيضاء ============ */
+/* ============ شاشة الورقة ============ */
 #paperScreen{
   position:fixed;inset:0;
   align-items:center;justify-content:center;
@@ -191,14 +200,15 @@ body{
   animation:fadeIn .7s ease;
 }
 .paper{
-  background:#fff;
+  background:linear-gradient(160deg,#1C0E14,#140810);
+  border:1px solid rgba(230,57,70,.25);
   border-radius:16px;
   padding:46px 28px 40px;
   width:100%;max-width:430px;
   text-align:center;
   box-shadow:
-    0 22px 55px rgba(111,87,80,.22),
-    0 4px 12px rgba(111,87,80,.1);
+    0 22px 55px rgba(0,0,0,.7),
+    0 0 40px rgba(230,57,70,.15);
   position:relative;
   animation:paperIn 1s ease;
 }
@@ -211,16 +221,15 @@ body{
   position:absolute;
   top:14px;left:14px;right:14px;
   height:1px;
-  background:linear-gradient(90deg,transparent,var(--pink-light),transparent);
+  background:linear-gradient(90deg,transparent,rgba(230,57,70,.5),transparent);
 }
 .paper-heart{
   font-size:2.6rem;
   margin-bottom:22px;
   display:inline-block;
   animation:beat 1.6s ease-in-out infinite;
-  filter:drop-shadow(0 4px 8px rgba(230,57,70,.25));
+  filter:drop-shadow(0 0 12px rgba(230,57,70,.8));
 }
-@keyframes beat{0%,100%{transform:scale(1);}50%{transform:scale(1.15);}}
 .paper-text{
   font-size:1.08rem;
   line-height:2.1;
@@ -231,7 +240,7 @@ body{
 }
 .paper-text::after{
   content:'|';
-  color:var(--pink-dark);
+  color:var(--red-soft);
   margin-right:2px;
   animation:blink .8s step-end infinite;
   font-weight:400;
@@ -242,7 +251,7 @@ body{
   display:inline-block;
   margin-top:28px;
   font-size:1rem;
-  color:#F0A4B0;
+  color:#FF8A98;
   text-decoration:none;
   font-weight:700;
   letter-spacing:1px;
@@ -254,7 +263,7 @@ body{
   border-radius:20px;
 }
 .paper-link.show{opacity:1; pointer-events:auto; animation:pulse 2s ease-in-out infinite;}
-.paper-link:hover{color:#E88A9A; transform:translateY(-2px);}
+.paper-link:hover{color:#FFB0BA; transform:translateY(-2px);}
 
 /* ============ شاشة كلمة السر ============ */
 #passwordScreen{
@@ -265,18 +274,16 @@ body{
   animation:fadeIn .7s ease;
 }
 .pass-card{
-  background:rgba(255,253,252,.92);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.6);
+  background:linear-gradient(160deg,#1C0E14,#140810);
+  border:1px solid rgba(230,57,70,.25);
   border-radius:28px;
   padding:38px 28px;
   width:100%;max-width:400px;
   text-align:center;
-  box-shadow:0 22px 50px rgba(111,87,80,.14);
+  box-shadow:0 22px 50px rgba(0,0,0,.7),0 0 40px rgba(230,57,70,.12);
   animation:fadeUp .8s ease;
 }
-.pass-card .lock{font-size:2.4rem;margin-bottom:12px;display:block;}
+.pass-card .lock{font-size:2.4rem;margin-bottom:12px;display:block;filter:drop-shadow(0 0 10px rgba(230,57,70,.6));}
 .pass-card h2{
   font-size:1.1rem;
   font-weight:700;
@@ -292,8 +299,8 @@ body{
   width:100%;
   padding:16px 18px;
   border-radius:18px;
-  border:1.5px solid #F3DCD8;
-  background:#fff;
+  border:1.5px solid rgba(230,57,70,.3);
+  background:#0D0608;
   font-family:'Cairo',sans-serif;
   font-size:1.15rem;
   text-align:center;
@@ -304,18 +311,18 @@ body{
   color:var(--text);
 }
 .pass-card input:focus{
-  border-color:var(--pink-dark);
-  box-shadow:0 0 0 4px rgba(222,139,134,.15);
+  border-color:var(--red);
+  box-shadow:0 0 0 4px rgba(230,57,70,.2);
 }
 .error{
-  color:var(--red);
+  color:var(--red-soft);
   font-size:.9rem;
   margin-top:14px;
   min-height:22px;
   font-weight:600;
 }
 .btn{
-  background:linear-gradient(135deg,var(--pink-dark),var(--pink));
+  background:linear-gradient(135deg,#B0202C,#E63946);
   color:#fff;
   border:none;
   border-radius:30px;
@@ -324,15 +331,15 @@ body{
   font-size:1rem;
   font-weight:600;
   cursor:pointer;
-  box-shadow:0 8px 20px rgba(222,139,134,.42);
+  box-shadow:0 8px 20px rgba(230,57,70,.5);
   transition:transform .2s,box-shadow .25s;
 }
-.btn:hover{box-shadow:0 10px 26px rgba(222,139,134,.6);}
+.btn:hover{box-shadow:0 10px 26px rgba(230,57,70,.7);}
 .btn:active{transform:scale(.95);}
 .open-gift-text{
   margin-top:20px;
   font-size:.95rem;
-  color:var(--pink-dark);
+  color:#FF8A98;
   font-weight:600;
   letter-spacing:1px;
   animation:pulse 2s ease-in-out infinite;
@@ -357,27 +364,27 @@ body{
   position:fixed;
   top:0;left:0;right:0;
   z-index:60;
-  background:rgba(255,253,252,.92);
+  background:rgba(13,6,8,.92);
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
   padding:10px 14px;
   display:flex;
   align-items:center;
   gap:12px;
-  box-shadow:0 4px 18px rgba(111,87,80,.12);
-  border-bottom:1px solid rgba(255,255,255,.7);
+  box-shadow:0 4px 18px rgba(0,0,0,.5);
+  border-bottom:1px solid rgba(230,57,70,.2);
   animation:fadeUp .6s ease;
 }
 .music-btn{
   width:42px;height:42px;
   border-radius:50%;
   border:none;
-  background:linear-gradient(135deg,var(--pink-dark),var(--pink));
+  background:linear-gradient(135deg,#B0202C,#E63946);
   color:#fff;
   font-size:.95rem;
   cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 14px rgba(222,139,134,.45);
+  box-shadow:0 6px 14px rgba(230,57,70,.5);
   transition:transform .2s;
   flex-shrink:0;
   font-family:'Cairo',sans-serif;
@@ -395,7 +402,7 @@ body{
 .music-progress{
   width:100%;
   height:4px;
-  background:#F1DAD6;
+  background:#3A1A22;
   border-radius:3px;
   overflow:hidden;
   cursor:pointer;
@@ -404,9 +411,10 @@ body{
 .music-fill{
   height:100%;
   width:0%;
-  background:linear-gradient(90deg,var(--pink-dark),var(--pink));
+  background:linear-gradient(90deg,#B0202C,#FF4D5E);
   border-radius:3px;
   transition:width .15s linear;
+  box-shadow:0 0 8px rgba(230,57,70,.6);
 }
 .music-time{
   font-size:.7rem;
@@ -436,11 +444,13 @@ body{
   letter-spacing:1px;
   color:var(--text);
   animation:fadeUp 1s ease;
+  text-shadow:0 0 20px rgba(230,57,70,.35);
 }
 .couple-names .heart-icon{
   font-size:.85em;
   animation:beat 1.5s ease-in-out infinite;
-  filter:drop-shadow(0 3px 6px rgba(230,57,70,.3));
+  filter:drop-shadow(0 0 10px rgba(230,57,70,.9));
+  display:inline-block;
 }
 .hero .story-title{
   font-size:clamp(1.15rem,4.5vw,1.35rem);
@@ -452,19 +462,17 @@ body{
 .hero .divider{
   font-size:.85rem;
   letter-spacing:8px;
-  color:var(--pink-dark);
+  color:var(--red-soft);
   margin-top:14px;
-  opacity:.75;
+  opacity:.8;
 }
 .card{
-  background:rgba(255,253,252,.94);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.7);
+  background:linear-gradient(160deg,#1C0E14,#140810);
+  border:1px solid var(--card-border);
   border-radius:26px;
   padding:30px 22px;
   margin-bottom:22px;
-  box-shadow:0 14px 34px rgba(111,87,80,.09);
+  box-shadow:0 14px 34px rgba(0,0,0,.5);
   opacity:0;
   transform:translateY(30px);
   transition:opacity .9s ease,transform .9s ease;
@@ -484,11 +492,12 @@ body{
   margin:14px 0 18px;
 }
 .time-box{
-  background:linear-gradient(180deg,var(--pink-light),#F3CFCB);
+  background:linear-gradient(180deg,#2A121A,#1A0A10);
+  border:1px solid rgba(230,57,70,.2);
   border-radius:16px;
   padding:14px 4px 10px;
   text-align:center;
-  box-shadow:inset 0 -2px 6px rgba(255,255,255,.6),0 3px 8px rgba(222,139,134,.14);
+  box-shadow:inset 0 -2px 6px rgba(230,57,70,.1),0 3px 10px rgba(0,0,0,.4);
 }
 .time-box span{
   font-size:1.55rem;
@@ -497,6 +506,7 @@ body{
   color:var(--text);
   font-variant-numeric:tabular-nums;
   line-height:1.1;
+  text-shadow:0 0 12px rgba(230,57,70,.5);
 }
 .time-box small{
   font-size:.6rem;
@@ -505,6 +515,7 @@ body{
   font-family:'Playfair Display',serif;
   margin-top:4px;
   display:block;
+  color:var(--text-soft);
 }
 .romantic-text{
   text-align:center;
@@ -516,7 +527,8 @@ body{
 }
 .station{text-align:center;}
 .date-pill{
-  background:linear-gradient(135deg,var(--pink-light),#F3CFCB);
+  background:linear-gradient(135deg,#2A121A,#1A0A10);
+  border:1px solid rgba(230,57,70,.3);
   border-radius:26px;
   padding:11px 30px;
   display:inline-block;
@@ -524,7 +536,8 @@ body{
   font-weight:700;
   letter-spacing:1.5px;
   margin-bottom:16px;
-  box-shadow:0 4px 12px rgba(222,139,134,.18);
+  box-shadow:0 4px 12px rgba(0,0,0,.4),0 0 15px rgba(230,57,70,.15);
+  color:var(--text);
 }
 .station p{
   font-size:.98rem;
@@ -556,7 +569,6 @@ body{
   display:inline-block;
   cursor:pointer;
   transition:transform .35s;
-  user-select:none;
   -webkit-tap-highlight-color:transparent;
 }
 .gift-wrapper:hover{transform:translateY(-5px);}
@@ -565,35 +577,35 @@ body{
   width:150px;height:150px;
   margin:0 auto 12px;
   position:relative;
-  filter:drop-shadow(0 14px 22px rgba(196,36,49,.2));
+  filter:drop-shadow(0 14px 22px rgba(230,57,70,.4));
 }
 .gift-body{
   width:100%;height:78%;
-  background:linear-gradient(160deg,#EE9C95,#D97B74);
+  background:linear-gradient(160deg,#8E1A24,#5A0F18);
   border-radius:0 0 18px 18px;
   position:absolute;bottom:0;left:0;
   overflow:hidden;
 }
 .gift-lid{
   width:112%;height:32%;
-  background:linear-gradient(160deg,#F5B2AB,#E2948D);
+  background:linear-gradient(160deg,#B0202C,#7A121C);
   border-radius:14px;
   position:absolute;top:0;left:-6%;
   transition:transform .7s cubic-bezier(.34,1.56,.64,1);
   transform-origin:bottom center;
   z-index:3;
-  box-shadow:0 5px 12px rgba(0,0,0,.1);
+  box-shadow:0 5px 12px rgba(0,0,0,.4);
 }
 .gift-box.open .gift-lid{transform:translateY(-80px) rotate(-15deg);}
 .gift-ribbon-v{
   width:18%;height:100%;
-  background:rgba(255,253,252,.6);
+  background:rgba(255,138,152,.4);
   position:absolute;left:41%;top:0;
   border-radius:2px;
 }
 .gift-ribbon-h{
   width:100%;height:22%;
-  background:rgba(255,253,252,.6);
+  background:rgba(255,138,152,.4);
   position:absolute;top:38%;left:0;
   border-radius:2px;
 }
@@ -625,7 +637,7 @@ body{
   font-size:1.6rem;
   opacity:0;
   pointer-events:none;
-  filter:drop-shadow(0 3px 6px rgba(230,57,70,.35));
+  filter:drop-shadow(0 0 8px rgba(230,57,70,.9));
   will-change:transform,opacity;
 }
 @keyframes heartPop{
@@ -651,7 +663,8 @@ body{
   max-height:0;
   overflow:hidden;
   opacity:0;
-  background:linear-gradient(160deg,#FFF6F4,#FBEAE6);
+  background:linear-gradient(160deg,#1A0A10,#140810);
+  border:1px solid rgba(230,57,70,.2);
   border-radius:22px;
   padding:0 22px;
   text-align:right;
@@ -668,6 +681,7 @@ body{
   font-size:2rem;
   margin-bottom:18px;
   animation:beat 1.8s ease-in-out infinite;
+  filter:drop-shadow(0 0 12px rgba(230,57,70,.7));
 }
 .hidden-letter p{
   font-size:.98rem;
@@ -683,7 +697,7 @@ body{
   font-style:italic;
   font-size:1rem;
   letter-spacing:2px;
-  color:var(--pink-dark);
+  color:#FF8A98;
   margin-top:24px;
 }
 
@@ -699,17 +713,17 @@ body{
 .from-to-sub{
   text-align:center;
   font-size:.85rem;
-  color:var(--text-soft);
+  color:var(--red-soft);
   margin-bottom:22px;
   letter-spacing:3px;
 }
 .stanza{
-  background:linear-gradient(160deg,#FFFDFC,#FDF3F0);
+  background:linear-gradient(160deg,#1A0A10,#140810);
+  border:1px solid rgba(230,57,70,.15);
   border-radius:20px;
   padding:22px 20px;
   margin-bottom:14px;
-  box-shadow:0 8px 22px rgba(111,87,80,.07);
-  border:1px solid rgba(255,255,255,.8);
+  box-shadow:0 8px 22px rgba(0,0,0,.4);
   opacity:0;
   transform:translateY(28px);
   transition:opacity .8s ease,transform .8s ease;
@@ -730,14 +744,14 @@ body{
   gap:16px;
 }
 .note-block{
-  background:linear-gradient(160deg,#FFFDFC,#FDF3F0);
+  background:linear-gradient(160deg,#1A0A10,#140810);
+  border:1px solid rgba(230,57,70,.15);
   border-radius:20px;
   padding:22px 20px;
-  box-shadow:0 8px 22px rgba(111,87,80,.07);
+  box-shadow:0 8px 22px rgba(0,0,0,.4);
   opacity:0;
   transform:translateY(28px);
   transition:opacity .8s ease,transform .8s ease;
-  border:1px solid rgba(255,255,255,.8);
 }
 .note-block.show{opacity:1;transform:translateY(0);}
 .note-block p{
@@ -767,11 +781,12 @@ body{
   font-size:1.4rem;
   margin-top:14px;
   animation:beat 1.8s ease-in-out infinite;
+  filter:drop-shadow(0 0 10px rgba(230,57,70,.7));
 }
 .end-note .line{
   display:inline-block;
   width:44px;height:1px;
-  background:var(--pink-dark);
+  background:var(--red-soft);
   vertical-align:middle;
   margin:0 14px;
   opacity:.5;
@@ -809,7 +824,7 @@ body{
   <p class="tap-text"><span class="emoji">💌</span>اضغط على الظرف<span class="emoji">💌</span></p>
 </section>
 
-<!-- 2) شاشة الورقة البيضاء -->
+<!-- 2) شاشة الورقة -->
 <section id="paperScreen" class="screen">
   <div class="paper">
     <div class="paper-heart">❤️</div>
@@ -822,9 +837,9 @@ body{
 <section id="passwordScreen" class="screen">
   <div class="pass-card">
     <span class="lock">🔐</span>
-    <h2>اكتبي كلمة السر للدخول ❤️</h2>
+    <h2>اكتبي كلمة سر للدخول يا روحي ❤️</h2>
     <p class="hint">كلمة السر هي المفتاح لحكايتنا</p>
-    <input type="password" id="secretInput" placeholder="• • • • • • •" inputmode="numeric" dir="ltr" autocomplete="off">
+    <input type="password" id="secretInput" placeholder="• • • • • •" inputmode="numeric" dir="ltr" autocomplete="off">
     <button class="btn" id="submitSecret">دخول ❤️</button>
     <p class="error" id="secretError"></p>
     <p class="open-gift-text">🎁 افتحي الهديه 🎁</p>
@@ -834,7 +849,6 @@ body{
 <!-- 4) الصفحة الرئيسية -->
 <section id="homeScreen" class="screen">
 
-  <!-- النافبار + الأغنية -->
   <div class="music-bar" id="musicBar">
     <button class="music-btn" id="musicBtn" aria-label="play">
       <span id="musicIcon">▶</span>
@@ -860,19 +874,17 @@ body{
       <p class="divider">✦ ❤ ✦ ❤ ✦</p>
     </header>
 
-    <!-- العداد -->
     <div class="card">
       <h2>بقالنا مع بعض ⏱️</h2>
       <div class="counter">
         <div class="time-box"><span id="days">9</span><small>DAYS</small></div>
-        <div class="time-box"><span id="hours">1</span><small>HOURS</small></div>
+        <div class="time-box"><span id="hours">00</span><small>HOURS</small></div>
         <div class="time-box"><span id="minutes">26</span><small>MIN</small></div>
         <div class="time-box"><span id="seconds">00</span><small>SEC</small></div>
       </div>
       <p class="romantic-text">بداية أحلى قصة في حياتي ❤️</p>
     </div>
 
-    <!-- محطة حكايتنا -->
     <div class="card">
       <h2>محطة حكايتنا ❤️</h2>
       <div class="station">
@@ -881,7 +893,6 @@ body{
       </div>
     </div>
 
-    <!-- كل لحظة معاك بتفرق -->
     <div class="card">
       <h2>كل لحظة معاك بتفرق معايا ❤️</h2>
       <div class="love-lines">
@@ -893,7 +904,6 @@ body{
       </div>
     </div>
 
-    <!-- الهدية -->
     <div class="card gift-card">
       <p class="gift-title">لسه في حاجة مخبيها ليكي ❤️</p>
       <p class="gift-sub">اضغطي هنا يا روحي</p>
@@ -912,7 +922,6 @@ body{
         <p class="tap-hint" id="tapHint">اضغطي على الهدية</p>
       </div>
 
-      <!-- الرسالة المخفية -->
       <div class="hidden-letter" id="hiddenLetter">
         <div class="big-heart">💌❤️</div>
 
@@ -942,20 +951,17 @@ body{
       </div>
     </div>
 
-    <!-- من بودل لحبوبه -->
     <div class="card">
-      <h2 class="from-to-title">من بودا ل حبوبه 💌</h2>
+      <h2 class="from-to-title">من بودل لحبوبه 💌</h2>
       <p class="from-to-sub">❤ ✦ ❤ ✦ ❤</p>
       <div id="stanzasContainer"></div>
     </div>
 
-    <!-- من قلبي ليكي يا روح قلبي -->
     <div class="card">
       <h2>من قلبي ليكي يا روح قلبي ❤️</h2>
       <div class="notes-list" id="notesList"></div>
     </div>
 
-    <!-- النهاية -->
     <div class="end-note">
       <span class="line"></span>
       <span class="end-txt">end of our little story</span>
@@ -967,8 +973,23 @@ body{
 </section>
 
 <script>
+/* ============ منع النسخ والكليك يمين والسحب ============ */
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('cut', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+
+document.addEventListener('keydown', e => {
+  // منع Ctrl+C, Ctrl+U, Ctrl+S, Ctrl+A, F12
+  if (e.ctrlKey && ['c','u','s','a','x'].includes(e.key.toLowerCase())) {
+    e.preventDefault();
+  }
+  if (e.key === 'F12') e.preventDefault();
+});
+
 /* ================== الإعدادات ================== */
-const SECRET_WORD = "1872005";
+const SECRET_WORD = "182005";
 
 const INIT_DAYS    = 9;
 const INIT_HOURS   = 0;
@@ -996,8 +1017,6 @@ const musicFill  = document.getElementById('musicFill');
 const musicTime  = document.getElementById('musicTime');
 const musicProgress = document.getElementById('musicProgress');
 
-let musicStarted = false;
-
 function fmtTime(t){
   if (!isFinite(t)) return '0:00';
   const m = Math.floor(t / 60);
@@ -1019,7 +1038,6 @@ audio.addEventListener('loadedmetadata', updateMusicUI);
 function playMusic(){
   audio.play().then(() => {
     musicIcon.textContent = '❚❚';
-    musicStarted = true;
   }).catch(err => {
     console.warn('Autoplay blocked:', err);
     musicIcon.textContent = '▶';
@@ -1065,7 +1083,7 @@ envelope.addEventListener('click', () => {
   }, 1000);
 });
 
-/* ============ 2) الورقة البيضاء + الكتابة ============ */
+/* ============ 2) الورقة + الكتابة ============ */
 const PAPER_TEXT = 'مش عارف رد فعلك هيبقا ايه بس انا عملتلك حاجه مخصوص عشانك ويارب تفرحك';
 let typingStarted = false;
 
@@ -1111,7 +1129,6 @@ function checkSecret(){
     window.scrollTo({top:0, behavior:'instant'});
     startCounter();
     initReveal();
-    /* تشغيل الأغنية مع الدخول (user gesture) */
     setTimeout(() => playMusic(), 200);
   } else {
     secretError.textContent = 'لا يا روحي 😂 جربي تاني ❤️';
@@ -1125,8 +1142,6 @@ secretInput.addEventListener('keypress', e => {
 });
 
 /* ============ 4) العداد ============ */
-let counterInterval = null;
-let counterRAF = null;
 let counterRunning = false;
 
 function updateCounter(){
@@ -1138,50 +1153,39 @@ function updateCounter(){
   const m = Math.floor((diff / 60000) % 60);
   const s = Math.floor((diff / 1000) % 60);
 
-  const dEl = document.getElementById('days');
-  const hEl = document.getElementById('hours');
-  const mEl = document.getElementById('minutes');
-  const sEl = document.getElementById('seconds');
-
-  if (dEl) dEl.textContent = d;
-  if (hEl) hEl.textContent = String(h).padStart(2,'0');
-  if (mEl) mEl.textContent = String(m).padStart(2,'0');
-  if (sEl) sEl.textContent = String(s).padStart(2,'0');
+  document.getElementById('days').textContent = d;
+  document.getElementById('hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('minutes').textContent = String(m).padStart(2,'0');
+  document.getElementById('seconds').textContent = String(s).padStart(2,'0');
 }
 
 function startCounter(){
   if (counterRunning) return;
   counterRunning = true;
-
   updateCounter();
-  counterInterval = setInterval(updateCounter, 1000);
-
-  function loop(){
-    updateCounter();
-    counterRAF = requestAnimationFrame(loop);
-  }
-  counterRAF = requestAnimationFrame(loop);
-
-  window.addEventListener('focus', updateCounter);
+  setInterval(updateCounter, 1000);
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) updateCounter();
   });
 }
 
-/* ============ قلوب الخلفية ============ */
+/* ============ قلوب حمرا صغيرة بتتحرك ============ */
 (function createHearts(){
   const container = document.getElementById('hearts');
-  const hearts = ['❤️','🩷','❤️','🩷','💗'];
-  for (let i = 0; i < 12; i++){
+  const hearts = ['❤️','❤️','❤️','❤','❤️'];
+  const total = 18;
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < total; i++){
     const h = document.createElement('div');
     h.className = 'heart';
     h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
     h.style.left = (Math.random() * 96 + 2) + '%';
-    h.style.fontSize = (Math.random() * 1.05 + 0.55) + 'rem';
-    h.style.animationDuration = (Math.random() * 10 + 10) + 's';
-    h.style.animationDelay = (Math.random() * 14) + 's';
-    container.appendChild(h);
+    h.style.fontSize = (Math.random() * 0.5 + 0.5) + 'rem'; // صغيرة
+    h.style.animationDuration = (Math.random() * 8 + 8) + 's';
+    h.style.animationDelay = (Math.random() * 12) + 's';
+    frag.appendChild(h);
   }
+  container.appendChild(frag);
 })();
 
 /* ============ الهدية ============ */
@@ -1189,19 +1193,18 @@ const giftWrapper  = document.getElementById('giftWrapper');
 const giftBox      = document.getElementById('giftBox');
 const hiddenLetter = document.getElementById('hiddenLetter');
 const tapHint      = document.getElementById('tapHint');
+const giftHeartsContainer = document.getElementById('giftHeartsContainer');
 let giftOpened = false;
 
-/* دالة توليد القلوب اللي تطلع من الهدية */
 function spawnGiftHearts(){
-  const container = document.getElementById('giftHeartsContainer');
-  const heartEmojis = ['❤️','❤️','❤️','🩷','💗','❤️'];
-
+  const heartEmojis = ['❤️','❤️','❤️','❤','💗'];
+  const frag = document.createDocumentFragment();
+  const created = [];
   for (let i = 0; i < 14; i++){
     const h = document.createElement('span');
     h.className = 'gift-heart-pop';
     h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
 
-    // اتجاه القلوب: -130px لـ 130px عرض، -180px لـ -240px فوق
     const x = (Math.random() * 260 - 130).toFixed(0) + 'px';
     const y = (-180 - Math.random() * 60).toFixed(0) + 'px';
     const rot = (Math.random() * 80 - 40).toFixed(0) + 'deg';
@@ -1212,21 +1215,19 @@ function spawnGiftHearts(){
     h.style.fontSize = (1.2 + Math.random() * 1.1) + 'rem';
     h.style.animationDelay = (Math.random() * 0.4) + 's';
 
-    container.appendChild(h);
-
-    // نظّف بعد ما الحركة تخلص
-    setTimeout(() => h.remove(), 2400);
+    frag.appendChild(h);
+    created.push(h);
   }
+  giftHeartsContainer.appendChild(frag);
+
+  setTimeout(() => created.forEach(h => h.remove()), 2400);
 }
 
 giftWrapper.addEventListener('click', () => {
   if (!giftOpened){
     giftOpened = true;
     giftBox.classList.add('open');
-
-    // ولّع القلوب بعد لحظة عشان الهدية تتفتح الأول
     setTimeout(spawnGiftHearts, 250);
-
     setTimeout(() => {
       hiddenLetter.classList.add('show');
       tapHint.textContent = 'اضغطي تاني عشان تتقفل';
@@ -1300,12 +1301,14 @@ const stanzas = [
 
 (function renderStanzas(){
   const container = document.getElementById('stanzasContainer');
+  const frag = document.createDocumentFragment();
   stanzas.forEach(group => {
     const block = document.createElement('div');
     block.className = 'stanza';
     block.innerHTML = group.map(line => '<p>' + line + '</p>').join('');
-    container.appendChild(block);
+    frag.appendChild(block);
   });
+  container.appendChild(frag);
 })();
 
 /* ============ رسائل الحب ============ */
@@ -1362,12 +1365,14 @@ const loveNotes = [
 
 (function renderNotes(){
   const list = document.getElementById('notesList');
+  const frag = document.createDocumentFragment();
   loveNotes.forEach(group => {
     const block = document.createElement('div');
     block.className = 'note-block';
     block.innerHTML = group.map(line => '<p>' + line + '</p>').join('');
-    list.appendChild(block);
+    frag.appendChild(block);
   });
+  list.appendChild(frag);
 })();
 
 /* ============ ظهور العناصر مع السكرول ============ */

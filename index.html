@@ -59,7 +59,6 @@ body{
 .screen{display:none;}
 .screen.active{display:flex;}
 
-/* ============ شاشة الظرف ============ */
 #envelopeScreen{
   position:fixed;inset:0;
   align-items:center;justify-content:center;
@@ -93,7 +92,6 @@ body{
   text-align:center;
 }
 
-/* الظرف بيهتز يمين وشمال */
 .envelope-wrap{
   perspective:1000px;
   margin-bottom:38px;
@@ -179,7 +177,6 @@ body{
 .tap-text .emoji{margin:0 6px;}
 @keyframes pulseText{0%,100%{opacity:.6;}50%{opacity:1;}}
 
-/* ============ شاشة الورقة ============ */
 #paperScreen{
   position:fixed;inset:0;
   align-items:center;justify-content:center;
@@ -244,7 +241,6 @@ body{
 .paper-link.show{opacity:1;pointer-events:auto;}
 .paper-link:hover{color:#FFB0BA;}
 
-/* ============ شاشة كلمة السر ============ */
 #passwordScreen{
   position:fixed;inset:0;
   align-items:center;justify-content:center;
@@ -316,7 +312,6 @@ body{
   letter-spacing:1px;
 }
 
-/* ============ الصفحة الرئيسية ============ */
 #homeScreen{
   position:relative;
   min-height:100vh;
@@ -332,7 +327,6 @@ body{
   align-items:center;
 }
 
-/* ============ شريط الأغنية ============ */
 .music-bar{
   position:fixed;
   top:0;left:0;right:0;
@@ -393,7 +387,6 @@ body{
   text-align:center;
 }
 
-/* ============ الهيرو ============ */
 .hero{
   text-align:center;
   padding:16px 12px 30px;
@@ -401,7 +394,6 @@ body{
   width:100%;
 }
 
-/* الاسم Abdulrahman ❤️ Habiba بحد أحمر متحرك - نسخة خفيفة */
 .name-wrapper{
   position:relative;
   display:inline-block;
@@ -458,7 +450,6 @@ body{
   opacity:.8;
 }
 
-/* ============ الكروت ============ */
 .card{
   background:linear-gradient(160deg,#1C0E14,#140810);
   border:1px solid var(--card-border);
@@ -547,7 +538,6 @@ body{
 }
 .love-lines p:last-child{margin-bottom:0;}
 
-/* ============ الهدية ============ */
 .gift-card{text-align:center;}
 .gift-title{
   font-size:1.15rem;
@@ -617,7 +607,6 @@ body{
   text-align:center;
 }
 
-/* قلوب تطلع من الهدية */
 .gift-hearts-container{
   position:absolute;
   inset:0;
@@ -659,34 +648,51 @@ body{
 }
 .hidden-letter.show{
   margin-top:22px;
-  max-height:12000px;
+  max-height:20000px;
   opacity:1;
-  padding:26px 22px;
+  padding:26px 18px;
 }
 .hidden-letter .big-heart{
   text-align:center;
   font-size:2rem;
-  margin-bottom:18px;
-}
-.hidden-letter p{
-  font-size:.98rem;
-  line-height:2.15;
-  color:var(--text);
-  margin-bottom:16px;
-  text-align:justify;
-}
-.hidden-letter p:last-child{margin-bottom:0;}
-.hidden-letter .sign{
-  text-align:center;
-  font-family:'Playfair Display',serif;
-  font-style:italic;
-  font-size:1rem;
-  letter-spacing:2px;
-  color:#FF8A98;
-  margin-top:24px;
+  margin-bottom:20px;
 }
 
-/* ============ من بودا ل حبوبه ============ */
+/* كل مقطع من الكلام */
+.hidden-letter .gift-stanza{
+  background:linear-gradient(160deg,#1C0E14,#140810);
+  border:1px solid rgba(230,57,70,.18);
+  border-radius:16px;
+  padding:18px 16px;
+  margin-bottom:14px;
+  text-align:center;
+}
+.hidden-letter .gift-stanza:last-of-type{
+  margin-bottom:0;
+}
+.hidden-letter .gift-stanza p{
+  font-size:.96rem;
+  line-height:2.1;
+  color:var(--text);
+  margin-bottom:8px;
+  text-align:center;
+}
+.hidden-letter .gift-stanza p:last-child{
+  margin-bottom:0;
+}
+.hidden-letter .gift-stanza p:first-child::before{
+  content:'❤ ';
+  color:var(--red-soft);
+  font-size:.85em;
+  opacity:.75;
+}
+.hidden-letter .gift-stanza p:last-child::after{
+  content:' ❤';
+  color:var(--red-soft);
+  font-size:.85em;
+  opacity:.75;
+}
+
 .from-to-title{
   text-align:center;
   font-family:'Playfair Display',serif;
@@ -703,7 +709,6 @@ body{
   letter-spacing:3px;
 }
 
-/* الحد الأحمر المتحرك - نسخة خفيفة جداً بـ background-position */
 .stanza{
   position:relative;
   padding:2.5px;
@@ -749,7 +754,6 @@ body{
   opacity:.7;
 }
 
-/* ============ من قلبي ليكي - حد أبيض متحرك خفيف ============ */
 .notes-list{
   display:flex;
   flex-direction:column;
@@ -843,9 +847,10 @@ body{
   .music-time{display:none;}
   .couple-names{font-size:clamp(.85rem,4.2vw,1.2rem);gap:6px;}
   .name-inner{padding:9px 14px;}
+  .hidden-letter .gift-stanza{padding:15px 12px;}
+  .hidden-letter .gift-stanza p{font-size:.92rem;}
 }
 
-/* تحسين الأداء للجوال */
 @media (max-width:768px){
   .card, .stanza, .note-block{
     will-change:auto;
@@ -977,29 +982,65 @@ body{
       <div class="hidden-letter" id="hiddenLetter">
         <div class="big-heart">💌❤️</div>
 
-        <p>انا ساعات بستغرب ازاي شخص ممكن يدخل حياة حد بالبساطه دي وفي وقت قليل يبقى وجوده فارق بالشكل ده.</p>
+        <div class="gift-stanza">
+          <p>من وقت ما عرفتك وانا حاسس ان في حاجه حلوه دخلت حياتي من غير ما اخطط ليها</p>
+          <p>وجودك في يومي بقى من الحاجات اللي بتفرحني حتى لو مجرد كلام بسيط بينا</p>
+          <p>بقيت من غير ما اخد بالي بستنى كلامك وبفرح لما الاقي منك رساله</p>
+        </div>
 
-        <p>يمكن انتي مش حاسه بده بس انتي بقيتي من اكتر الناس اللي وجودهم بيفرق معايا، وبقيت بحب احكيلك عن يومي وعن الحاجات اللي بتحصل معايا حتى لو حاجات عاديه او ملهاش لازمه، عشان مجرد اني اشاركك حاجه بيخليني مبسوط.</p>
+        <div class="gift-stanza">
+          <p>فيكي حاجه مريحه اوي بتخليني لما اتكلم معاكي احس ان الدنيا اهدي</p>
+          <p>يمكن انتي مش واخده بالك من تاثيرك عليا بس وجودك فرق معايا اكتر مما تتخيلي</p>
+          <p>انا بحب طريقتك في الكلام وبحب روحك وبحب التفاصيل الصغيره اللي في شخصيتك</p>
+        </div>
 
-        <p>فيكي حاجه مميزه اوي مش عارف اوصفها، بس بتحسسني براحة غريبه لما بتكلم معاكي، وبحس اني مش محتاج امثل او اغير من نفسي عشان ابقى قدامك بشكل معين، وبحب اني اقدر اكون على طبيعتي معاكي من غير تفكير كتير.</p>
+        <div class="gift-stanza">
+          <p>وبحب انك بتخلي الكلام معاكي سهل ومش محتاج افكر كتير قبل ما اقول اللي جوايا</p>
+          <p>حسيت معاكي ان في حد ممكن اتكلم معاه من غير ما اخاف يتفهمني غلط</p>
+          <p>ومع الوقت بقي وجودك بالنسبالي حاجه غاليه اوي</p>
+        </div>
 
-        <p>ومع الوقت بقيت اكتشف فيكي حاجات حلوه اكتر من غير ما تاخدي بالك، وبقيت احترمك واقدر وجودك بطريقه اكبر كل يوم. انتي مش مجرد حد اتعرفت عليه وخلاص، انتي بقيتي حد ليه مكان مختلف عندي، وكل ما افتكر حاجات حصلت بينا بلاقي نفسي ببتسم من غير ما احس.</p>
+        <div class="gift-stanza">
+          <p>انتي مش مجرد شخص عرفته وعدى في حياتي وخلاص</p>
+          <p>انتي بقي ليكي مكان خاص جوايا من غير ما حتى نكون محتاجين نسمي اللي بينا</p>
+          <p>انا مبسوط اوي ان الظروف خلتني اعرفك</p>
+        </div>
 
-        <p>يمكن اكتر حاجه بحبها فيكي انك مش محتاجه تعملي مجهود عشان تكوني حلوه في عين اللي قدامك، لان روحك لوحدها فيها حاجه مميزه اوي، وطريقتك وكلامك وتفاصيلك الصغيره كلهم بيخلوني متعلق بوجودك اكتر.</p>
+        <div class="gift-stanza">
+          <p>ومبسوط اكتر بكل موقف صغير جمعني بيكي</p>
+          <p>حتى الكلام العادي معاكي ساعات بيبقى بالنسبالي احلى جزء في اليوم</p>
+          <p>وعندي احساس انك من الناس اللي الواحد بيقابلهم مره ويصعب عليه ينساهم</p>
+        </div>
 
-        <p>انا مبسوط ان الظروف خلتني اعرفك، ومبسوط اني قابلت شخص زيك في وقت من حياتي. يمكن معرفش احنا ايه بالظبط، ومش مهم عندي نسمي اللي بينا باي اسم، بس المهم عندي ان الحاجه اللي بينا حقيقيه بالنسبالي، وان وجودك بقى جزء جميل من ايامي.</p>
+        <div class="gift-stanza">
+          <p>لان فيكي طيبه وحنينه مش سهل الواحد يلاقيهم في حد</p>
+          <p>وانتي حلوه من جواكي بشكل يمكن انتي نفسك مش شايفاه</p>
+          <p>فيكي حاجه بتخلي اللي حواليكي يحسوا انهم مرتاحين وهما معاكي</p>
+        </div>
 
-        <p>وبصراحه انا بقيت لما يحصل معايا حاجه حلوه بفكر اني احكيلك، ولما ابقى مخنوق بلاقي نفسي عايز اتكلم معاكي، وده لوحده كفايه يبينلي قد ايه انتي بقيتي قريبه مني.</p>
+        <div class="gift-stanza">
+          <p>وانا واحد من الناس اللي حسوا بده من اول ما قربت منك</p>
+          <p>بجد وجودك علمني ان مش لازم حد يعمل حاجه كبيره عشان يغير يوم حد</p>
+          <p>ممكن كلمه منك او اهتمام صغير منك يخليني مبسوط باقي اليوم</p>
+        </div>
 
-        <p>انتي عندك قلب جميل اوي، وده من اكتر الحاجات اللي خلتني اشوفك بشكل مختلف، وكل ما اعرفك اكتر كل ما الاقي حاجات فيكي تستاهل التقدير والاهتمام.</p>
+        <div class="gift-stanza">
+          <p>وعشان كده انا مقدر كل حاجه حلوه عملتيها معايا حتى لو انتي شايفاها حاجات عاديه</p>
+          <p>انا مش عايز اقولك كلام كبير وخلاص انا بس عايزك تعرفي انك غاليه عندي بجد</p>
+          <p>ومهما كان شكل العلاقه اللي بينا انا مبسوط بالحاجه الحلوه اللي بينا</p>
+        </div>
 
-        <p>وانا بجد بتمنى تفضلي دايما زي ما انتي ومتغيريش نفسك عشان حد، لان جمالك الحقيقي في روحك، وفي طريقتك، وفي الحاجات اللي بتعمليها من غير ما تستني مقابل.</p>
+        <div class="gift-stanza">
+          <p>ومش مستعجل اننا نحط اسم لكل حاجه</p>
+          <p>كفايه عندي اني عرفتك وان وجودك بقى جزء حلو من حياتي</p>
+          <p>واتمنى دايما اشوفك مبسوطه ومرتاحه لانك تستاهلي كل حاجه حلوه</p>
+        </div>
 
-        <p>يمكن انتي شايفه نفسك شخص عادي، بس بالنسبالي انتي مش عاديه خالص، ووجودك في حياتي عمل فرق كبير. يمكن انا مش بعرف اقول الكلام ده كل يوم، بس ده فعلا اللي جوايا.</p>
+        <div class="gift-stanza">
+          <p>ولو في يوم شككتي في نفسك افتكري ان في حد شايف فيكي حاجات حلوه كتير اوي يمكن انتي مش شايفاها</p>
+          <p>وبجد انا محظوظ اني قابلتك وانك بقيتي من الناس اللي وجودهم بيفرق معايا بالشكل ده ❤️</p>
+        </div>
 
-        <p>وانتي من الناس اللي معرفتهم خلتني اشوف حاجات كتير بشكل احلى، وخلت في حاجات بسيطه في يومي يبقى ليها معنى مختلف. وانا بجد ممتن اني عرفتك، ومبسوط اني لقيت حد اقدر اتكلم معاه بالطريقه دي، ومهما كان شكل علاقتنا بعد كده انا هفضل مقدر وجودك، ومبسوط انك كنتي جزء من حياتي بالشكل ده.</p>
-
-        <p class="sign">— دايمًا ليكي ❤️</p>
       </div>
     </div>
 
@@ -1217,7 +1258,6 @@ function startCounter(){
   });
 }
 
-/* قلوب الخلفية - مخففة عن الأول */
 (function createHearts(){
   const container = document.getElementById('hearts');
   const hearts = ['❤','❤️','❤'];
@@ -1237,7 +1277,6 @@ function startCounter(){
   container.appendChild(frag);
 })();
 
-/* ============ الهدية ============ */
 const giftWrapper  = document.getElementById('giftWrapper');
 const giftBox      = document.getElementById('giftBox');
 const hiddenLetter = document.getElementById('hiddenLetter');

@@ -9,27 +9,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg1:#0D0608;
-  --bg2:#1A0A10;
-  --bg3:#240E16;
-  --card:#1C0E14;
-  --card-border:rgba(230,57,70,.15);
+  --bg1:#FFF5F2;
+  --bg2:#FBE4E0;
+  --bg3:#F8D9D6;
+  --card:#FFFFFF;
+  --card-border:rgba(230,57,70,.1);
   --red:#E63946;
   --red-soft:#FF4D5E;
-  --text:#F5E4E6;
-  --text-soft:#B8989D;
-  --envelope:#3A1F26;
-  --envelope-dark:#2A151B;
+  --red-deep:#B0202C;
+  --pink-soft:#FFD4DA;
+  --pink-light:#FBE4E0;
+  --text:#5E4742;
+  --text-soft:#8C736D;
+  --text-light:#B8989D;
+  --envelope:#F3C9A9;
+  --envelope-dark:#E7B48F;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
 body{
   font-family:'Cairo',sans-serif;
   color:var(--text);
   min-height:100vh;
   overflow-x:hidden;
   position:relative;
-  background:linear-gradient(160deg,#0D0608 0%,#1A0A10 45%,#240E16 100%);
+  background:linear-gradient(160deg,#FFF5F2 0%,#FBE4E0 45%,#F8D9D6 100%);
   background-attachment:fixed;
   line-height:1.8;
   user-select:none;
@@ -52,8 +56,8 @@ body{
 }
 @keyframes floatUp{
   0%{transform:translate3d(0,0,0) rotate(0deg);opacity:0;}
-  10%{opacity:.6;}
-  90%{opacity:.6;}
+  10%{opacity:.55;}
+  90%{opacity:.55;}
   100%{transform:translate3d(0,-105vh,0) rotate(300deg);opacity:0;}
 }
 .screen{display:none;}
@@ -68,7 +72,7 @@ body{
 }
 .env-name{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2.2rem,7.5vw,3.2rem);
+  font-size:clamp(2rem,7.5vw,3.2rem);
   font-weight:700;
   letter-spacing:4px;
   color:var(--text);
@@ -77,7 +81,7 @@ body{
   white-space:nowrap;
 }
 .env-name .mark{
-  color:var(--red-soft);
+  color:var(--red);
   font-size:.8em;
   vertical-align:middle;
   margin-right:6px;
@@ -86,8 +90,8 @@ body{
 .env-deco{
   font-size:.85rem;
   letter-spacing:8px;
-  color:var(--red-soft);
-  opacity:.8;
+  color:var(--red);
+  opacity:.75;
   margin-bottom:44px;
   text-align:center;
 }
@@ -118,7 +122,7 @@ body{
   position:absolute;inset:0;
   background:linear-gradient(160deg,var(--envelope) 0%,var(--envelope-dark) 100%);
   border-radius:10px;
-  box-shadow:0 14px 30px rgba(0,0,0,.55);
+  box-shadow:0 14px 30px rgba(111,87,80,.25);
 }
 .env-pocket-left{
   position:absolute;inset:0;
@@ -157,11 +161,11 @@ body{
   position:absolute;top:52%;left:50%;
   transform:translate(-50%,-50%);
   width:52px;height:52px;
-  background:radial-gradient(circle at 35% 30%,#FF4D5E,#8E0F1A 70%);
+  background:radial-gradient(circle at 35% 30%,#FF4D5E,#B0202C 70%);
   border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   color:#fff;font-size:1.3rem;
-  box-shadow:0 4px 14px rgba(230,57,70,.6);
+  box-shadow:0 4px 14px rgba(230,57,70,.5);
   z-index:6;
   transition:opacity .35s,transform .35s;
 }
@@ -184,13 +188,14 @@ body{
   padding:20px;
 }
 .paper{
-  background:linear-gradient(160deg,#1C0E14,#140810);
-  border:1px solid rgba(230,57,70,.25);
+  background:#FFFFFF;
   border-radius:16px;
   padding:46px 28px 40px;
   width:100%;max-width:430px;
   text-align:center;
-  box-shadow:0 18px 45px rgba(0,0,0,.65);
+  box-shadow:
+    0 22px 55px rgba(111,87,80,.2),
+    0 4px 12px rgba(111,87,80,.08);
   position:relative;
 }
 .paper::before{
@@ -198,7 +203,7 @@ body{
   position:absolute;
   top:14px;left:14px;right:14px;
   height:1px;
-  background:linear-gradient(90deg,transparent,rgba(230,57,70,.5),transparent);
+  background:linear-gradient(90deg,transparent,rgba(230,57,70,.3),transparent);
 }
 .paper-heart{
   font-size:2.6rem;
@@ -217,7 +222,7 @@ body{
 }
 .paper-text::after{
   content:'|';
-  color:var(--red-soft);
+  color:var(--red);
   margin-right:2px;
   animation:blink .8s step-end infinite;
   font-weight:400;
@@ -228,7 +233,7 @@ body{
   display:inline-block;
   margin-top:28px;
   font-size:1rem;
-  color:#FF8A98;
+  color:#E86A7A;
   text-decoration:none;
   font-weight:700;
   letter-spacing:1px;
@@ -239,7 +244,7 @@ body{
   padding:6px 14px;
 }
 .paper-link.show{opacity:1;pointer-events:auto;}
-.paper-link:hover{color:#FFB0BA;}
+.paper-link:hover{color:#D14F60;}
 
 #passwordScreen{
   position:fixed;inset:0;
@@ -248,13 +253,12 @@ body{
   padding:20px;
 }
 .pass-card{
-  background:linear-gradient(160deg,#1C0E14,#140810);
-  border:1px solid rgba(230,57,70,.25);
+  background:#FFFFFF;
   border-radius:28px;
   padding:38px 28px;
   width:100%;max-width:400px;
   text-align:center;
-  box-shadow:0 18px 45px rgba(0,0,0,.65);
+  box-shadow:0 22px 50px rgba(111,87,80,.16);
 }
 .pass-card .lock{font-size:2.4rem;margin-bottom:12px;display:block;}
 .pass-card h2{
@@ -272,8 +276,8 @@ body{
   width:100%;
   padding:16px 18px;
   border-radius:18px;
-  border:1.5px solid rgba(230,57,70,.3);
-  background:#0D0608;
+  border:1.5px solid #F3DCD8;
+  background:#FFFDFC;
   font-family:'Cairo',sans-serif;
   font-size:1.15rem;
   text-align:center;
@@ -283,16 +287,19 @@ body{
   transition:border-color .2s;
   color:var(--text);
 }
-.pass-card input:focus{border-color:var(--red);}
+.pass-card input:focus{
+  border-color:var(--red);
+  box-shadow:0 0 0 4px rgba(230,57,70,.1);
+}
 .error{
-  color:var(--red-soft);
+  color:var(--red);
   font-size:.9rem;
   margin-top:14px;
   min-height:22px;
   font-weight:600;
 }
 .btn{
-  background:linear-gradient(135deg,#B0202C,#E63946);
+  background:linear-gradient(135deg,#D14F60,#E63946);
   color:#fff;
   border:none;
   border-radius:30px;
@@ -301,13 +308,14 @@ body{
   font-size:1rem;
   font-weight:600;
   cursor:pointer;
+  box-shadow:0 8px 20px rgba(230,57,70,.35);
   transition:transform .15s;
 }
 .btn:active{transform:scale(.96);}
 .open-gift-text{
   margin-top:20px;
   font-size:.95rem;
-  color:#FF8A98;
+  color:#E86A7A;
   font-weight:600;
   letter-spacing:1px;
 }
@@ -315,7 +323,7 @@ body{
 #homeScreen{
   position:relative;
   min-height:100vh;
-  padding:100px 0 70px;
+  padding:30px 0 70px;
   z-index:10;
 }
 .container{
@@ -327,66 +335,6 @@ body{
   align-items:center;
 }
 
-.music-bar{
-  position:fixed;
-  top:0;left:0;right:0;
-  z-index:60;
-  background:rgba(13,6,8,.96);
-  padding:10px 14px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  box-shadow:0 3px 12px rgba(0,0,0,.5);
-  border-bottom:1px solid rgba(230,57,70,.2);
-}
-.music-btn{
-  width:42px;height:42px;
-  border-radius:50%;
-  border:none;
-  background:linear-gradient(135deg,#B0202C,#E63946);
-  color:#fff;
-  font-size:.95rem;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .15s;
-  flex-shrink:0;
-  font-family:'Cairo',sans-serif;
-  padding-right:2px;
-}
-.music-btn:active{transform:scale(.92);}
-.music-body{flex:1;min-width:0;}
-.music-title{
-  font-size:.78rem;
-  font-weight:700;
-  color:var(--text);
-  margin-bottom:5px;
-  letter-spacing:.5px;
-}
-.music-progress{
-  width:100%;
-  height:4px;
-  background:#3A1A22;
-  border-radius:3px;
-  overflow:hidden;
-  cursor:pointer;
-  position:relative;
-}
-.music-fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,#B0202C,#FF4D5E);
-  border-radius:3px;
-}
-.music-time{
-  font-size:.7rem;
-  color:var(--text-soft);
-  font-variant-numeric:tabular-nums;
-  font-family:'Playfair Display',serif;
-  flex-shrink:0;
-  min-width:34px;
-  text-align:center;
-}
-
 .hero{
   text-align:center;
   padding:16px 12px 30px;
@@ -394,6 +342,7 @@ body{
   width:100%;
 }
 
+/* ============ الاسم بحد أحمر متحرك + صور كبيرة ============ */
 .name-wrapper{
   position:relative;
   display:inline-block;
@@ -412,51 +361,79 @@ body{
 }
 .name-inner{
   position:relative;
-  background:linear-gradient(160deg,#1C0E14,#140810);
+  background:#FFFFFF;
   border-radius:57px;
-  padding:14px 26px;
+  padding:22px 26px;
 }
 .couple-names{
   display:flex;
   flex-direction:row;
   align-items:center;
   justify-content:center;
-  gap:10px;
+  gap:14px;
   font-family:'Playfair Display',serif;
-  font-size:clamp(1.1rem,5vw,1.75rem);
+  font-size:clamp(1rem,4.5vw,1.6rem);
   font-weight:700;
   letter-spacing:.5px;
   color:var(--text);
+}
+
+/* اسم + صورة في حاوية واحدة */
+.name-block{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+/* الصورة كبيرة في دايره */
+.name-avatar{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid rgba(230,57,70,.5);
+  box-shadow:
+    0 8px 22px rgba(230,57,70,.25),
+    0 0 0 6px rgba(255,228,232,.7);
+  flex-shrink:0;
+  display:block;
+  background:#FFE4E8;
+}
+
+.couple-names .name{
+  display:inline-block;
   white-space:nowrap;
 }
-.couple-names .name{display:inline-block;}
+
 .couple-names .heart-icon{
-  font-size:.9em;
+  font-size:1.6em;
   animation:beat 1.6s ease-in-out infinite;
   display:inline-block;
+  align-self:center;
 }
 
 .hero .story-title{
   font-size:clamp(1.15rem,4.5vw,1.35rem);
   font-weight:700;
   color:var(--text);
-  margin-top:18px;
+  margin-top:24px;
 }
 .hero .divider{
   font-size:.85rem;
   letter-spacing:8px;
-  color:var(--red-soft);
+  color:var(--red);
   margin-top:14px;
-  opacity:.8;
+  opacity:.7;
 }
 
 .card{
-  background:linear-gradient(160deg,#1C0E14,#140810);
+  background:#FFFFFF;
   border:1px solid var(--card-border);
   border-radius:26px;
   padding:30px 22px;
   margin-bottom:22px;
-  box-shadow:0 10px 25px rgba(0,0,0,.45);
+  box-shadow:0 10px 25px rgba(111,87,80,.08);
   opacity:0;
   transform:translate3d(0,25px,0);
   transition:opacity .7s ease, transform .7s ease;
@@ -472,48 +449,125 @@ body{
   font-weight:700;
   color:var(--text);
 }
-.counter{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:9px;
-  margin:14px 0 18px;
+
+.music-card{text-align:center;}
+.music-player{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:4px 0;
 }
-.time-box{
-  background:linear-gradient(180deg,#2A121A,#1A0A10);
-  border:1px solid rgba(230,57,70,.2);
-  border-radius:16px;
-  padding:14px 4px 10px;
-  text-align:center;
-}
-.time-box span{
-  font-size:1.55rem;
-  font-weight:700;
-  display:block;
-  color:var(--text);
-  font-variant-numeric:tabular-nums;
-  line-height:1.1;
-}
-.time-box small{
-  font-size:.6rem;
-  opacity:.75;
-  letter-spacing:1.5px;
-  font-family:'Playfair Display',serif;
-  margin-top:4px;
-  display:block;
-  color:var(--text-soft);
-}
-.romantic-text{
-  text-align:center;
+.music-btn{
+  width:54px;height:54px;
+  border-radius:50%;
+  border:none;
+  background:linear-gradient(135deg,#D14F60,#E63946);
+  color:#fff;
   font-size:1rem;
-  color:var(--text);
-  opacity:.95;
-  line-height:1.9;
-  font-weight:600;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .15s;
+  flex-shrink:0;
+  font-family:'Cairo',sans-serif;
+  box-shadow:0 6px 16px rgba(230,57,70,.35);
+  padding-right:2px;
 }
+.music-btn:active{transform:scale(.92);}
+.music-body{flex:1;min-width:0;text-align:right;}
+.music-title{
+  font-size:.85rem;
+  font-weight:700;
+  color:var(--text);
+  margin-bottom:7px;
+  letter-spacing:.5px;
+}
+.music-progress{
+  width:100%;
+  height:5px;
+  background:#F3DCD8;
+  border-radius:3px;
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+}
+.music-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#D14F60,#FF4D5E);
+  border-radius:3px;
+}
+.music-time{
+  font-size:.75rem;
+  color:var(--text-soft);
+  font-variant-numeric:tabular-nums;
+  font-family:'Playfair Display',serif;
+  flex-shrink:0;
+  min-width:36px;
+  text-align:center;
+}
+
+.memories-list{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  width:100%;
+}
+
+.memory-item{
+  position:relative;
+  background:linear-gradient(135deg,#FFE4E8 0%,#FFD0D6 50%,#FFE4E8 100%);
+  border:2px solid rgba(230,57,70,.35);
+  border-radius:20px;
+  padding:20px 18px;
+  text-align:center;
+  box-shadow:0 6px 18px rgba(230,57,70,.15);
+  overflow:visible;
+  opacity:0;
+  transform:translate3d(0,20px,0);
+  transition:opacity .7s ease, transform .7s ease;
+  will-change:transform,opacity;
+}
+.memory-item.show{opacity:1;transform:translate3d(0,0,0);}
+
+.memory-item p{
+  font-size:.98rem;
+  line-height:2;
+  color:#7A2E38;
+  font-weight:600;
+  position:relative;
+  z-index:2;
+  word-break:break-word;
+}
+
+.memory-hearts{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:visible;
+  z-index:1;
+}
+.memory-heart{
+  position:absolute;
+  bottom:50%;
+  left:50%;
+  font-size:1.2rem;
+  opacity:0;
+  pointer-events:none;
+  will-change:transform,opacity;
+}
+@keyframes memoryHeartPop{
+  0%{opacity:0;transform:translate3d(-50%,-50%,0) scale(.3);}
+  20%{opacity:1;transform:translate3d(-50%,-50%,0) scale(1);}
+  100%{opacity:0;transform:translate3d(calc(-50% + var(--x)), calc(-50% + var(--y)), 0) scale(.6) rotate(var(--rot));}
+}
+.memory-heart.animate{
+  animation:memoryHeartPop 2s ease-out forwards;
+}
+
 .station{text-align:center;}
 .date-pill{
-  background:linear-gradient(135deg,#2A121A,#1A0A10);
-  border:1px solid rgba(230,57,70,.3);
+  background:linear-gradient(135deg,#FBE4E0,#F8D9D6);
+  border:1px solid rgba(230,57,70,.2);
   border-radius:26px;
   padding:11px 30px;
   display:inline-block;
@@ -567,30 +621,31 @@ body{
 }
 .gift-body{
   width:100%;height:78%;
-  background:linear-gradient(160deg,#8E1A24,#5A0F18);
+  background:linear-gradient(160deg,#EE9C95,#D97B74);
   border-radius:0 0 18px 18px;
   position:absolute;bottom:0;left:0;
   overflow:hidden;
 }
 .gift-lid{
   width:112%;height:32%;
-  background:linear-gradient(160deg,#B0202C,#7A121C);
+  background:linear-gradient(160deg,#F5B2AB,#E2948D);
   border-radius:14px;
   position:absolute;top:0;left:-6%;
   transition:transform .6s cubic-bezier(.34,1.56,.64,1);
   transform-origin:bottom center;
   z-index:3;
+  box-shadow:0 5px 12px rgba(111,87,80,.15);
 }
 .gift-box.open .gift-lid{transform:translateY(-80px) rotate(-15deg);}
 .gift-ribbon-v{
   width:18%;height:100%;
-  background:rgba(255,138,152,.4);
+  background:rgba(255,253,252,.6);
   position:absolute;left:41%;top:0;
   border-radius:2px;
 }
 .gift-ribbon-h{
   width:100%;height:22%;
-  background:rgba(255,138,152,.4);
+  background:rgba(255,253,252,.6);
   position:absolute;top:38%;left:0;
   border-radius:2px;
 }
@@ -632,16 +687,15 @@ body{
   animation:heartPop 1.7s ease-out forwards;
 }
 
-/* ============ الرسالة المخفية ============ */
 .hidden-letter{
   margin-top:0;
   max-height:0;
   overflow:hidden;
   opacity:0;
-  background:linear-gradient(160deg,#1A0A10,#140810);
-  border:1px solid rgba(230,57,70,.2);
+  background:linear-gradient(160deg,#FFF9F7,#FDEEE9);
+  border:1px solid rgba(230,57,70,.15);
   border-radius:22px;
-  padding:0 22px;
+  padding:0 18px;
   text-align:right;
   transition:max-height 1.3s ease,opacity .8s ease,padding .6s ease,margin .5s ease;
   width:100%;
@@ -658,18 +712,16 @@ body{
   margin-bottom:20px;
 }
 
-/* كل مقطع من الكلام */
 .hidden-letter .gift-stanza{
-  background:linear-gradient(160deg,#1C0E14,#140810);
-  border:1px solid rgba(230,57,70,.18);
+  background:#FFFFFF;
+  border:1px solid rgba(230,57,70,.12);
   border-radius:16px;
   padding:18px 16px;
   margin-bottom:14px;
   text-align:center;
+  box-shadow:0 4px 12px rgba(111,87,80,.05);
 }
-.hidden-letter .gift-stanza:last-of-type{
-  margin-bottom:0;
-}
+.hidden-letter .gift-stanza:last-of-type{margin-bottom:0;}
 .hidden-letter .gift-stanza p{
   font-size:.96rem;
   line-height:2.1;
@@ -677,18 +729,16 @@ body{
   margin-bottom:8px;
   text-align:center;
 }
-.hidden-letter .gift-stanza p:last-child{
-  margin-bottom:0;
-}
+.hidden-letter .gift-stanza p:last-child{margin-bottom:0;}
 .hidden-letter .gift-stanza p:first-child::before{
   content:'❤ ';
-  color:var(--red-soft);
+  color:var(--red);
   font-size:.85em;
   opacity:.75;
 }
 .hidden-letter .gift-stanza p:last-child::after{
   content:' ❤';
-  color:var(--red-soft);
+  color:var(--red);
   font-size:.85em;
   opacity:.75;
 }
@@ -704,7 +754,7 @@ body{
 .from-to-sub{
   text-align:center;
   font-size:.85rem;
-  color:var(--red-soft);
+  color:var(--red);
   margin-bottom:22px;
   letter-spacing:3px;
 }
@@ -718,7 +768,7 @@ body{
   opacity:0;
   transform:translate3d(0,25px,0);
   transition:opacity .7s ease, transform .7s ease;
-  background:linear-gradient(110deg,#8E0F1A,#E63946,#FF4D5E,#E63946,#8E0F1A,#E63946,#FF4D5E);
+  background:linear-gradient(110deg,#B0202C,#E63946,#FF4D5E,#E63946,#B0202C,#E63946,#FF4D5E);
   background-size:300% 100%;
   animation:gradientMove 5s linear infinite;
   width:100%;
@@ -728,7 +778,7 @@ body{
 
 .stanza-inner{
   position:relative;
-  background:linear-gradient(160deg,#1A0A10,#140810);
+  background:#FFFFFF;
   border-radius:20px;
   padding:24px 20px;
 }
@@ -743,13 +793,13 @@ body{
 .stanza-inner p:last-child{margin-bottom:0;}
 .stanza-inner p:first-child::before{
   content:'❤ ';
-  color:var(--red-soft);
+  color:var(--red);
   font-size:.85em;
   opacity:.7;
 }
 .stanza-inner p:last-child::after{
   content:' ❤';
-  color:var(--red-soft);
+  color:var(--red);
   font-size:.85em;
   opacity:.7;
 }
@@ -769,7 +819,7 @@ body{
   opacity:0;
   transform:translate3d(0,25px,0);
   transition:opacity .7s ease, transform .7s ease;
-  background:linear-gradient(110deg,#B8989D,#FFFFFF,#F5E4E6,#FFFFFF,#B8989D,#FFFFFF,#F5E4E6);
+  background:linear-gradient(110deg,#E8B4B8,#FF9AA8,#FFD4DA,#FF9AA8,#E8B4B8,#FF9AA8,#FFD4DA);
   background-size:300% 100%;
   animation:gradientMove 5s linear infinite;
   width:100%;
@@ -779,7 +829,7 @@ body{
 
 .note-inner{
   position:relative;
-  background:linear-gradient(160deg,#1A0A10,#140810);
+  background:#FFFFFF;
   border-radius:20px;
   padding:24px 20px;
 }
@@ -794,15 +844,15 @@ body{
 .note-inner p:last-child{margin-bottom:0;}
 .note-inner p:first-child::before{
   content:'✦ ';
-  color:#FFFFFF;
+  color:#E86A7A;
   font-size:.85em;
-  opacity:.75;
+  opacity:.85;
 }
 .note-inner p:last-child::after{
   content:' ✦';
-  color:#FFFFFF;
+  color:#E86A7A;
   font-size:.85em;
-  opacity:.75;
+  opacity:.85;
 }
 
 .end-note{
@@ -817,7 +867,7 @@ body{
   font-size:1.05rem;
   letter-spacing:3px;
   color:var(--text);
-  opacity:.85;
+  opacity:.8;
 }
 .end-note .heart{
   display:block;
@@ -828,33 +878,77 @@ body{
 .end-note .line{
   display:inline-block;
   width:44px;height:1px;
-  background:var(--red-soft);
+  background:var(--red);
   vertical-align:middle;
   margin:0 14px;
   opacity:.5;
 }
 
-@media (max-width:400px){
-  .name-inner{padding:10px 16px;}
-  .couple-names{font-size:clamp(.95rem,4.4vw,1.4rem);gap:7px;}
+/* ============ تحسينات للموبايل ============ */
+@media (max-width: 480px){
+  #homeScreen{padding:24px 0 60px;}
+  .container{width:94%;}
+  .hero{padding:10px 8px 22px;margin-bottom:10px;}
+  .card{
+    padding:24px 16px;
+    border-radius:22px;
+    margin-bottom:18px;
+  }
+  .card h2{font-size:1.05rem;margin-bottom:16px;}
+  .music-btn{width:48px;height:48px;font-size:.9rem;}
+  .music-title{font-size:.78rem;}
+  .music-time{font-size:.7rem;min-width:32px;}
+  .stanza-inner{padding:20px 16px;}
+  .stanza-inner p{font-size:.92rem;line-height:2;}
+  .note-inner{padding:20px 16px;}
+  .note-inner p{font-size:.92rem;line-height:2;}
+  .hidden-letter .gift-stanza{padding:16px 13px;}
+  .hidden-letter .gift-stanza p{font-size:.92rem;line-height:2;}
+  .gift-box{width:130px;height:130px;}
+  .env-name{font-size:clamp(1.8rem,8vw,2.5rem);letter-spacing:3px;}
+  .env-deco{letter-spacing:6px;margin-bottom:32px;}
+  .envelope-wrap{margin-bottom:28px;}
+  .tap-text{font-size:.9rem;}
+  .paper{padding:38px 22px 34px;}
+  .paper-text{font-size:1rem;line-height:2;}
+  .pass-card{padding:32px 22px;}
+  .pass-card h2{font-size:1rem;}
+  .pass-card input{font-size:1rem;padding:14px 16px;letter-spacing:5px;}
+  .btn{padding:13px 28px;font-size:.95rem;}
+  .memories-list{gap:14px;}
+  .memory-item{padding:18px 15px;border-radius:18px;}
+  .memory-item p{font-size:.92rem;line-height:2;}
+  .memory-heart{font-size:1rem;}
+
+  /* على الموبايل الصور تفضل كبيرة */
+  .name-avatar{
+    width:130px;
+    height:130px;
+    border-width:3.5px;
+  }
+  .couple-names{gap:10px;}
+  .name-inner{padding:18px 16px;}
+  .name-block{gap:8px;}
 }
 
-@media (max-width:360px){
-  .time-box span{font-size:1.3rem;}
-  .card{padding:24px 16px;}
-  .env-name{letter-spacing:2px;}
-  .paper{padding:36px 20px 32px;}
+@media (max-width: 380px){
+  .couple-names{font-size:clamp(.85rem,3.8vw,1.1rem);gap:8px;}
+  .name-inner{padding:14px 12px;}
+  .name-avatar{width:110px;height:110px;border-width:3px;}
+  .card{padding:22px 14px;}
+  .card h2{font-size:1rem;}
+  .stanza-inner p{font-size:.88rem;}
+  .note-inner p{font-size:.88rem;}
+  .hidden-letter .gift-stanza p{font-size:.88rem;}
+  .memory-item{padding:16px 13px;}
+  .memory-item p{font-size:.88rem;line-height:1.95;}
+  .music-btn{width:44px;height:44px;}
   .music-time{display:none;}
-  .couple-names{font-size:clamp(.85rem,4.2vw,1.2rem);gap:6px;}
-  .name-inner{padding:9px 14px;}
-  .hidden-letter .gift-stanza{padding:15px 12px;}
-  .hidden-letter .gift-stanza p{font-size:.92rem;}
+  .gift-box{width:120px;height:120px;}
 }
 
 @media (max-width:768px){
-  .card, .stanza, .note-block{
-    will-change:auto;
-  }
+  .card, .stanza, .note-block{will-change:auto;}
 }
 </style>
 </head>
@@ -902,28 +996,21 @@ body{
 
 <section id="homeScreen" class="screen">
 
-  <div class="music-bar" id="musicBar">
-    <button class="music-btn" id="musicBtn" aria-label="play">
-      <span id="musicIcon">▶</span>
-    </button>
-    <div class="music-body">
-      <div class="music-title">🎵 أغنيتنا</div>
-      <div class="music-progress" id="musicProgress">
-        <div class="music-fill" id="musicFill"></div>
-      </div>
-    </div>
-    <span class="music-time" id="musicTime">0:00</span>
-  </div>
-
   <div class="container">
 
     <header class="hero">
       <div class="name-wrapper">
         <div class="name-inner">
           <div class="couple-names">
-            <span class="name">Abdulrahman</span>
+            <div class="name-block">
+              <img src="https://i.ibb.co/XkMq8pcW/faa8d5b5-717f-4afd-9be0-909e3350715b.jpg" alt="Abdulrahman" class="name-avatar">
+              <span class="name">Abdulrahman</span>
+            </div>
             <span class="heart-icon">❤️</span>
-            <span class="name">Habiba</span>
+            <div class="name-block">
+              <img src="https://i.ibb.co/dJKHYFNy/5897607868783988703.jpg" alt="Habiba" class="name-avatar">
+              <span class="name">Habiba</span>
+            </div>
           </div>
         </div>
       </div>
@@ -931,23 +1018,25 @@ body{
       <p class="divider">✦ ❤ ✦ ❤ ✦</p>
     </header>
 
-    <div class="card">
-      <h2>بقالنا مع بعض ⏱️</h2>
-      <div class="counter">
-        <div class="time-box"><span id="days">9</span><small>DAYS</small></div>
-        <div class="time-box"><span id="hours">02</span><small>HOURS</small></div>
-        <div class="time-box"><span id="minutes">35</span><small>MIN</small></div>
-        <div class="time-box"><span id="seconds">02</span><small>SEC</small></div>
+    <div class="card music-card">
+      <h2>🎵 أغنيتنا</h2>
+      <div class="music-player">
+        <button class="music-btn" id="musicBtn" aria-label="play">
+          <span id="musicIcon">▶</span>
+        </button>
+        <div class="music-body">
+          <div class="music-title" id="musicTitle">دوس على التشغيل ❤️</div>
+          <div class="music-progress" id="musicProgress">
+            <div class="music-fill" id="musicFill"></div>
+          </div>
+        </div>
+        <span class="music-time" id="musicTime">0:00</span>
       </div>
-      <p class="romantic-text">بداية أحلى قصة في حياتي ❤️</p>
     </div>
 
     <div class="card">
       <h2>محطة حكايتنا ❤️</h2>
-      <div class="station">
-        <div class="date-pill">16 / 9 / 2026</div>
-        <p>ومن اليوم ده بدأت اجمل حكاية في حياتي ❤️</p>
-      </div>
+      <div class="memories-list" id="memoriesList"></div>
     </div>
 
     <div class="card">
@@ -1081,20 +1170,6 @@ document.addEventListener('keydown', e => {
 
 const SECRET_WORD = "182005";
 
-const INIT_DAYS    = 9;
-const INIT_HOURS   = 2;
-const INIT_MINUTES = 35;
-const INIT_SECONDS = 2;
-
-const INIT_TOTAL_MS = (
-  (INIT_DAYS * 24 * 60 * 60) +
-  (INIT_HOURS * 60 * 60) +
-  (INIT_MINUTES * 60) +
-  INIT_SECONDS
-) * 1000;
-
-const START_DATE = new Date(Date.now() - INIT_TOTAL_MS);
-
 const audio = new Audio('https://files.catbox.moe/4jy3cv.mp3');
 audio.loop = true;
 audio.volume = 0.6;
@@ -1105,6 +1180,7 @@ const musicIcon  = document.getElementById('musicIcon');
 const musicFill  = document.getElementById('musicFill');
 const musicTime  = document.getElementById('musicTime');
 const musicProgress = document.getElementById('musicProgress');
+const musicTitle = document.getElementById('musicTitle');
 
 function fmtTime(t){
   if (!isFinite(t)) return '0:00';
@@ -1133,6 +1209,7 @@ audio.addEventListener('loadedmetadata', updateMusicUI);
 function playMusic(){
   audio.play().then(() => {
     musicIcon.textContent = '❚❚';
+    if (musicTitle) musicTitle.textContent = 'أغنيتنا ❤️ شغالة';
   }).catch(err => {
     console.warn('Autoplay blocked:', err);
     musicIcon.textContent = '▶';
@@ -1145,6 +1222,7 @@ function toggleMusic(){
   } else {
     audio.pause();
     musicIcon.textContent = '▶';
+    if (musicTitle) musicTitle.textContent = 'وقفت الأغنية';
   }
 }
 
@@ -1218,9 +1296,9 @@ function checkSecret(){
     secretError.textContent = '';
     showScreen('homeScreen');
     window.scrollTo(0, 0);
-    startCounter();
     initReveal();
-    setTimeout(() => playMusic(), 200);
+    startMemoryHearts();
+    playMusic();
   } else {
     secretError.textContent = 'لا يا روحي 😂 جربي تاني ❤️';
     secretInput.value = '';
@@ -1231,32 +1309,6 @@ document.getElementById('submitSecret').addEventListener('click', checkSecret);
 secretInput.addEventListener('keypress', e => {
   if (e.key === 'Enter') checkSecret();
 });
-
-let counterRunning = false;
-
-function updateCounter(){
-  const diff = Math.max(0, Date.now() - START_DATE.getTime());
-
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff / 3600000) % 24);
-  const m = Math.floor((diff / 60000) % 60);
-  const s = Math.floor((diff / 1000) % 60);
-
-  document.getElementById('days').textContent = d;
-  document.getElementById('hours').textContent = String(h).padStart(2,'0');
-  document.getElementById('minutes').textContent = String(m).padStart(2,'0');
-  document.getElementById('seconds').textContent = String(s).padStart(2,'0');
-}
-
-function startCounter(){
-  if (counterRunning) return;
-  counterRunning = true;
-  updateCounter();
-  setInterval(updateCounter, 1000);
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) updateCounter();
-  });
-}
 
 (function createHearts(){
   const container = document.getElementById('hearts');
@@ -1275,6 +1327,73 @@ function startCounter(){
     frag.appendChild(h);
   }
   container.appendChild(frag);
+})();
+
+const memories = [
+  "اول يوم اتكلمنا فيه كان يوم الاربع 16 / 9",
+  "اول مكالمه لينا كانت يوم السبت 19 / 9",
+  "اليوم اللي عرفنا فيه بعض كويس كان في مكالمه يوم الاثنين 21 / 9 وقعدنا من الساعه 12:48 لحد الساعه 4:10 وساعتها كنت رايح الجامعه مدروخ وكامل زي مايكون ضارب حته ب 200 😂❤️",
+  "اليوم اللي كنتي اول مره توحشيني فيه وكنت بحس اني محتاج اكلمك فيه كان الاربع 23 / 9",
+  "ومن هنا ابتدت اجمل قصه ف حياتي مع اجمل بنوته ❤️"
+];
+
+function createMemoryHearts(item){
+  const container = item.querySelector('.memory-hearts');
+  if (!container) return;
+
+  const heartEmojis = ['❤️','❤','💗','💕'];
+  const count = 3;
+
+  for (let i = 0; i < count; i++){
+    const h = document.createElement('span');
+    h.className = 'memory-heart';
+    h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+    const x = (Math.random() * 180 - 90).toFixed(0) + 'px';
+    const y = (-80 - Math.random() * 60).toFixed(0) + 'px';
+    const rot = (Math.random() * 70 - 35).toFixed(0) + 'deg';
+
+    h.style.setProperty('--x', x);
+    h.style.setProperty('--y', y);
+    h.style.setProperty('--rot', rot);
+    h.style.fontSize = (0.9 + Math.random() * 0.6) + 'rem';
+    h.style.animationDelay = (Math.random() * 0.4) + 's';
+
+    container.appendChild(h);
+    setTimeout(() => h.remove(), 2400);
+  }
+}
+
+let memoryHeartsInterval = null;
+
+function startMemoryHearts(){
+  if (memoryHeartsInterval) return;
+  memoryHeartsInterval = setInterval(() => {
+    document.querySelectorAll('.memory-item').forEach(item => {
+      const rect = item.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0){
+        createMemoryHearts(item);
+      }
+    });
+  }, 1400);
+}
+
+(function renderMemories(){
+  const list = document.getElementById('memoriesList');
+  if (!list) return;
+  const frag = document.createDocumentFragment();
+  memories.forEach(text => {
+    const item = document.createElement('div');
+    item.className = 'memory-item';
+    const p = document.createElement('p');
+    p.textContent = text;
+    const heartsBox = document.createElement('div');
+    heartsBox.className = 'memory-hearts';
+    item.appendChild(p);
+    item.appendChild(heartsBox);
+    frag.appendChild(item);
+  });
+  list.appendChild(frag);
 })();
 
 const giftWrapper  = document.getElementById('giftWrapper');
@@ -1468,7 +1587,7 @@ const loveNotes = [
 })();
 
 function initReveal(){
-  const items = document.querySelectorAll('.card, .note-block, .stanza');
+  const items = document.querySelectorAll('.card, .note-block, .stanza, .memory-item');
   if (!('IntersectionObserver' in window)){
     items.forEach(i => i.classList.add('show'));
     return;

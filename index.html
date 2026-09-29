@@ -335,7 +335,6 @@ body{
   padding:20px 22px;
 }
 
-/* الصورتين جنب بعض */
 .couple-names{
   display:flex;
   flex-direction:row;
@@ -401,72 +400,67 @@ body{
   box-shadow:0 8px 24px rgba(200,60,70,.08);
   opacity:0;
   transform:translateY(20px);
-  transition:opacity .5s ease, transform .5s ease, box-shadow .3s ease, border-color .3s ease;
+  transition:opacity .5s ease, transform .5s ease;
   width:100%;
   text-align:center;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
 }
 .card.show{opacity:1;transform:translateY(0);}
-
-/* ============ وميض أحمر لما تضغط ============ */
-@keyframes redFlash{
-  0%{
-    box-shadow:0 8px 24px rgba(200,60,70,.08);
-    border-color:rgba(230,57,70,.1);
-    background:#FFFFFF;
-  }
-  30%{
-    box-shadow:
-      0 0 0 4px rgba(230,57,70,.25),
-      0 0 30px rgba(230,57,70,.45),
-      0 0 60px rgba(230,57,70,.25),
-      0 8px 24px rgba(200,60,70,.15);
-    border-color:rgba(230,57,70,.55);
-    background:#FFF8F6;
-  }
-  100%{
-    box-shadow:0 8px 24px rgba(200,60,70,.08);
-    border-color:rgba(230,57,70,.1);
-    background:#FFFFFF;
-  }
-}
-.card.flash{
-  animation:redFlash 1s ease-out;
-}
-
-/* خط أحمر رفيع بيطلع من الجنب */
-.card::after{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:3px;
-  background:linear-gradient(90deg,transparent,#E63946,#FF5A67,#E63946,transparent);
-  opacity:0;
-  transition:opacity .3s ease;
-  pointer-events:none;
-}
-.card.flash::after{
-  opacity:1;
-  animation:lineFlash 1s ease-out;
-}
-@keyframes lineFlash{
-  0%{opacity:0; transform:scaleX(0);}
-  30%{opacity:1; transform:scaleX(1);}
-  100%{opacity:0; transform:scaleX(1);}
-}
-
 .card h2{
   font-size:1.15rem;
   margin-bottom:18px;
   font-weight:700;
   color:var(--rose-deep);
-  transition:color .3s ease;
 }
-.card.flash h2{color:var(--rose);}
 
-/* الأغنية */
+/* ============ الوميض الأحمر على الجملة نفسها (يشتغل مع الـ hover) ============ */
+@keyframes textGlowPulse{
+  0%, 100%{
+    color:#E63946;
+    text-shadow:
+      0 0 6px rgba(230,57,70,.55),
+      0 0 14px rgba(230,57,70,.35);
+  }
+  50%{
+    color:#C1121F;
+    text-shadow:
+      0 0 12px rgba(230,57,70,.95),
+      0 0 24px rgba(230,57,70,.65),
+      0 0 36px rgba(230,57,70,.4);
+  }
+}
+
+/* الجمل اللي هيشغلها الوميض */
+.memory-item p,
+.love-lines p,
+.stanza-inner p,
+.note-inner p,
+.hidden-letter .gift-stanza p{
+  transition:color .3s ease, text-shadow .3s ease;
+  border-radius:6px;
+  padding:2px 4px;
+  display:inline-block;
+  cursor:default;
+}
+
+/* الوميض يفضل شغال طول ما الماوس على الجملة */
+.memory-item p:hover,
+.love-lines p:hover,
+.stanza-inner p:hover,
+.note-inner p:hover,
+.hidden-letter .gift-stanza p:hover{
+  animation:textGlowPulse 1.6s ease-in-out infinite;
+}
+
+/* على الموبايل (لمس) نخليه يشتغل مع الضغط */
+.memory-item p:active,
+.love-lines p:active,
+.stanza-inner p:active,
+.note-inner p:active,
+.hidden-letter .gift-stanza p:active{
+  animation:textGlowPulse 1.6s ease-in-out infinite;
+}
+
+/* ============ الأغنية ============ */
 .music-player{
   display:flex;
   align-items:center;
@@ -875,10 +869,6 @@ body{
   .music-time{display:none;}
   .gift-box{width:110px;height:110px;}
 }
-
-@media (max-width:768px){
-  .card, .stanza, .note-block{transition-duration:.3s;}
-}
 </style>
 </head>
 <body>
@@ -912,8 +902,8 @@ body{
 <section id="passwordScreen" class="screen">
   <div class="pass-card">
     <span class="lock">🔐</span>
-    <h2>اكتبي كلمة سر للدخول يا روحي ❤️</h2>
-    <p class="hint">كلمة السر هي المفتاح لحكايتنا</p>
+    <h2>اكتبي كلمة سر للدخول ❤️</h2>
+    <p class="hint">كلمة السر هي المفتاح</p>
     <input type="password" id="secretInput" placeholder="• • • • • •" inputmode="numeric" dir="ltr" autocomplete="off">
     <button class="btn" id="submitSecret">دخول ❤️</button>
     <p class="error" id="secretError"></p>
@@ -1322,8 +1312,7 @@ function spawnGiftHearts(){
   setTimeout(() => created.forEach(h => h.remove()), 2100);
 }
 
-giftWrapper.addEventListener('click', (e) => {
-  e.stopPropagation();
+giftWrapper.addEventListener('click', () => {
   if (!giftOpened){
     giftOpened = true;
     giftBox.classList.add('open');
@@ -1344,23 +1333,6 @@ giftWrapper.addEventListener('click', (e) => {
       giftWrapper.scrollIntoView({behavior:'smooth', block:'center'});
     }, 250);
   }
-});
-
-/* ============ الوميض الأحمر لما تضغط على أي قسم ============ */
-function triggerFlash(card){
-  card.classList.remove('flash');
-  // force reflow عشان الأنيميشن يشتغل من الأول
-  void card.offsetWidth;
-  card.classList.add('flash');
-  setTimeout(() => card.classList.remove('flash'), 1100);
-}
-
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('click', (e) => {
-    // تجاهل لو المستخدم ضغط على زرار الأغنية أو الهدية
-    if (e.target.closest('.music-btn') || e.target.closest('.gift-wrapper')) return;
-    triggerFlash(card);
-  });
 });
 
 const stanzas = [
